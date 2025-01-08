@@ -1,0 +1,24 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Địa chỉ email của người đó
+to_email = "nguoidung@gmail.com"
+
+# Tạo email
+msg = MIMEMultipart()
+msg['From'] = "hackerman@gmail.com"
+msg['To'] = to_email
+msg['Subject'] = "Gmail login"
+
+# Thêm nội dung email
+body = "Click here to login to your account: https://mail.google.com/mail/u/0/#inbox"
+msg.attach(MIMEText(body, 'plain'))
+
+# Gửi email
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login("hackerman@gmail.com", "password")
+text = msg.as_string()
+server.sendmail("hackerman@gmail.com", to_email, text)
+server.quit()
